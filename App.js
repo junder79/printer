@@ -10,6 +10,9 @@ import AjustesBluetooth from './src/views/AjustesBluetooth';
 import Escaner from './src/views/Escaner';
 import DetalleImpresion from './src/views/DetalleImpresion';
 
+// importar icons
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +27,26 @@ function InicioScreen() {
 function InicioStack() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Inicio" component={InicioScreen} />
-      <Tab.Screen name="Ajustes" component={AjustesScreen} />
+      <Tab.Screen
+        name="InicioScreen"
+        options={{
+          tabBarLabel: 'Escanear',
+          tabBarIcon: ({color, size}) => (
+            <Icon name="camera" color="black" size={25} />
+          ),
+        }}
+        component={InicioScreen}
+      />
+      <Tab.Screen
+        name="Ajustes"
+        options={{
+          tabBarLabel: 'Impresora',
+          tabBarIcon: ({color, size}) => (
+            <Icon name="print" color="black" size={25} />
+          ),
+        }}
+        component={AjustesScreen}
+      />
     </Tab.Navigator>
   );
 }
