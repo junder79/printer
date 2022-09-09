@@ -1,6 +1,6 @@
-import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
 import React from 'react';
-
+import {TouchableOpacity, Text, View, StyleSheet, Surface} from 'react-native';
+import {Button} from 'react-native-paper';
 const ItemList = ({
   label,
   value,
@@ -13,13 +13,13 @@ const ItemList = ({
     <View style={styles.container}>
       <View>
         <Text style={styles.label}>{label || 'UNKNOWN'}</Text>
-        <Text>{value}</Text>
+        {/* MAC ADDRESS  <Text>{value}</Text>  */}
       </View>
       {connected && <Text style={styles.connected}>Conectado</Text>}
       {!connected && (
-        <TouchableOpacity onPress={onPress} style={styles.button(color)}>
-          <Text style={styles.actionText}>{actionText}</Text>
-        </TouchableOpacity>
+        <Button mode="contained-tonal" onPress={onPress}>
+          Conectar
+        </Button>
       )}
     </View>
   );
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#E7E7E7',
+    backgroundColor: '#8e0000',
     marginBottom: 12,
     padding: 12,
-    borderRadius: 4,
+    borderRadius: 50,
   },
-  label: {fontWeight: 'bold'},
+  label: {fontWeight: 'bold', color: 'white'},
   connected: {fontWeight: 'bold', color: '#00BCD4'},
   button: color => ({
     backgroundColor: color,

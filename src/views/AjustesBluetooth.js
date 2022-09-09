@@ -3,7 +3,6 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   TouchableOpacity,
   Linking,
   ActivityIndicator,
@@ -18,8 +17,10 @@ import {
 
 import {BluetoothManager} from 'react-native-bluetooth-escpos-printer';
 import ItemList from '../../ItemList';
-import SamplePrint from '../../SamplePrint';
+
 import {styles} from '../../styles';
+import {Badge, ProgressBar, Text} from 'react-native-paper';
+
 const AjustesBluetooth = () => {
   const [pairedDevices, setPairedDevices] = useState([]);
   const [foundDs, setFoundDs] = useState([]);
@@ -236,16 +237,26 @@ const AjustesBluetooth = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.bluetoothStatusContainer}>
-        <Text style={styles.bluetoothStatus(bleOpend ? '#47BF34' : '#A8A9AA')}>
-          Bluetooth {bleOpend ? 'Encendido' : 'No encendido'}
-        </Text>
-      </View>
-      {!bleOpend && (
-        <Text style={styles.bluetoothInfo}>Encender Bluetooth</Text>
-      )}
-      <Text style={styles.sectionTitle}>
-        Impresoras conectadas a la aplicación:
+      <Badge
+        style={{
+          color: 'white',
+          backgroundColor: 'black',
+          paddingLeft: 10,
+          paddingRight: 10,
+        }}>
+        Bluetooth : <Text>{bleOpend ? 'Encendido' : 'No encendido'}</Text>
+      </Badge>
+
+      <Text
+        variant="titleLarge"
+        style={{
+          color: '#6d6d6d',
+          marginTop: 20,
+          marginBottom: 20,
+
+          textTransform: 'uppercase',
+        }}>
+        Dispositivo Conectado
       </Text>
       {boundAddress.length > 0 && (
         <ItemList
@@ -257,14 +268,38 @@ const AjustesBluetooth = () => {
         />
       )}
       {boundAddress.length < 1 && (
-        <Text style={styles.printerInfo}>
-          Ninguna impresora conectada todavía
-        </Text>
+        <Badge
+          style={{
+            color: 'black',
+            marginTop: 20,
+            marginBottom: 20,
+            paddingLeft: 10,
+            paddingRight: 10,
+
+            fontSize: 15,
+          }}>
+          Impresora No conectada
+        </Badge>
       )}
-      <Text style={styles.sectionTitle}>
-        Bluetooth conectado a este teléfono:
+      <Text
+        variant="bodyLarge"
+        style={{
+          color: '#6d6d6d',
+          marginTop: 20,
+          marginBottom: 20,
+          marginLeft: 5,
+          textTransform: 'uppercase',
+          fontWeight: 'bold',
+        }}>
+        Dispositivos emparejados
       </Text>
-      {loading ? <ActivityIndicator animating={true} /> : null}
+      {loading ? (
+        <ProgressBar
+          indeterminate={true}
+          style={{marginBottom: 10}}
+          color="#af4448"
+        />
+      ) : null}
       <View style={styles.containerList}>
         {pairedDevices.map((item, index) => {
           return (
@@ -281,7 +316,6 @@ const AjustesBluetooth = () => {
         })}
       </View>
 
-      <SamplePrint />
       <View style={{height: 100}} />
     </ScrollView>
   );
