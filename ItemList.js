@@ -15,10 +15,18 @@ const ItemList = ({
         <Text style={styles.label}>{label || 'UNKNOWN'}</Text>
         {/* MAC ADDRESS  <Text>{value}</Text>  */}
       </View>
-      {connected && <Text style={styles.connected}>Conectado</Text>}
+      {connected && (
+        <Button icon="printer" mode="contained">
+          Conectado
+        </Button>
+      )}
       {!connected && (
-        <Button mode="contained-tonal" onPress={onPress}>
-          Conectar
+        <Button
+          elevation={4}
+          icon="printer"
+          mode="contained-tonal"
+          onPress={onPress}>
+          {actionText}
         </Button>
       )}
     </View>
@@ -32,12 +40,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#8e0000',
+    backgroundColor: 'white',
     marginBottom: 12,
     padding: 12,
-    borderRadius: 50,
+    borderRadius: 15,
   },
-  label: {fontWeight: 'bold', color: 'white'},
+  label: {fontWeight: 'bold', color: '#757575'},
   connected: {fontWeight: 'bold', color: '#00BCD4'},
   button: color => ({
     backgroundColor: color,

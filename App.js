@@ -55,8 +55,10 @@ function AjustesScreen() {
   return <AjustesBluetooth></AjustesBluetooth>;
 }
 
-function DetalleScreen() {
-  return <DetalleImpresion></DetalleImpresion>;
+function DetalleScreen({route, navigation}) {
+  return (
+    <DetalleImpresion route={route} navigation={navigation}></DetalleImpresion>
+  );
 }
 
 function App() {

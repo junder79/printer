@@ -19,7 +19,16 @@ import {BluetoothManager} from 'react-native-bluetooth-escpos-printer';
 import ItemList from '../../ItemList';
 
 import {styles} from '../../styles';
-import {Badge, ProgressBar, Text} from 'react-native-paper';
+import {
+  Badge,
+  ProgressBar,
+  Text,
+  Divider,
+  Card,
+  Button,
+  Surface,
+  Avatar,
+} from 'react-native-paper';
 
 const AjustesBluetooth = () => {
   const [pairedDevices, setPairedDevices] = useState([]);
@@ -237,29 +246,32 @@ const AjustesBluetooth = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Badge
+      {/*   <Badge
         style={{
           color: 'white',
           backgroundColor: 'black',
           paddingLeft: 10,
           paddingRight: 10,
+          marginBottom: 10,
         }}>
         Bluetooth : <Text>{bleOpend ? 'Encendido' : 'No encendido'}</Text>
-      </Badge>
-
+      </Badge> */}
+      {/*  <Divider /> */}
       <Text
         variant="titleLarge"
         style={{
-          color: '#6d6d6d',
-          marginTop: 20,
+          color: 'black',
+          marginTop: 0,
           marginBottom: 20,
-
           textTransform: 'uppercase',
+          fontWeight: 'bold',
+          fontSize: 15,
         }}>
         Dispositivo Conectado
       </Text>
       {boundAddress.length > 0 && (
         <ItemList
+          style={{backgroundColor: 'white', borderRadius: 20}}
           label={name}
           value={boundAddress}
           onPress={() => unPair(boundAddress)}
@@ -268,28 +280,28 @@ const AjustesBluetooth = () => {
         />
       )}
       {boundAddress.length < 1 && (
-        <Badge
+        <Card.Title
+          elevation={10}
+          title="Impresora no conectada"
           style={{
-            color: 'black',
-            marginTop: 20,
-            marginBottom: 20,
-            paddingLeft: 10,
-            paddingRight: 10,
-
-            fontSize: 15,
-          }}>
-          Impresora No conectada
-        </Badge>
+            backgroundColor: 'white',
+            borderRadius: 20,
+            marginBottom: 10,
+          }}
+          left={props => <Avatar.Icon {...props} icon="printer" />}
+        />
       )}
+      <Divider />
       <Text
         variant="bodyLarge"
         style={{
-          color: '#6d6d6d',
+          color: 'black',
           marginTop: 20,
           marginBottom: 20,
           marginLeft: 5,
           textTransform: 'uppercase',
           fontWeight: 'bold',
+          fontSize: 15,
         }}>
         Dispositivos emparejados
       </Text>
@@ -315,7 +327,6 @@ const AjustesBluetooth = () => {
           );
         })}
       </View>
-
       <View style={{height: 100}} />
     </ScrollView>
   );

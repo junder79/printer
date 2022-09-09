@@ -4,13 +4,11 @@ import {BluetoothEscposPrinter} from 'react-native-bluetooth-escpos-printer';
 import {hsdLogo} from './dummy-logo';
 import axios from 'axios';
 import {Button} from 'react-native-paper';
-const SamplePrint = () => {
-  const [rut, setRut] = useState('');
-
+const SamplePrint = ({run, nombre}) => {
   const getDataUsuario = () => {
     axios
       .get(
-        `https://grupohexxa.cl/controlacceso/APP/encontrarUsuario.php?run=${rut}`,
+        `https://grupohexxa.cl/controlacceso/APP/encontrarUsuario.php?run=${run}`,
       )
       .then(response => {})
       .catch(e => {});
@@ -37,15 +35,15 @@ const SamplePrint = () => {
 
           await BluetoothEscposPrinter.printText('\r\n\r\n', {});
 
-          await BluetoothEscposPrinter.printText('Nicolas Cisterna', {
-            widthtimes: 2,
-            heigthtimes: 2,
-            fonttype: 5,
+          await BluetoothEscposPrinter.printText(nombre, {
+            widthtimes: 1,
+            heigthtimes: 1,
+            fonttype: 0,
           });
           await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
           await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
         }}>
-        Imprimir
+        Imprimir {run}
       </Button>
     </View>
   );
