@@ -7,15 +7,9 @@ import {RNCamera} from 'react-native-camera';
 import {styles} from '../../styles';
 import {useNavigation} from '@react-navigation/native';
 import {Dimensions} from 'react-native';
-import {
-  Button,
-  Paragraph,
-  Dialog,
-  Portal,
-  Provider,
-  ActivityIndicator,
-} from 'react-native-paper';
+import {Dialog, Portal, ActivityIndicator} from 'react-native-paper';
 import axios from 'axios';
+import {BluetoothEscposPrinter} from 'react-native-bluetooth-escpos-printer';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -52,10 +46,32 @@ const Escaner = () => {
       .then(response => {
         setEstado(response.data.estado);
         setCargado(false);
+        imprimir(
+          response.data.nombre,
+          response.data.cargo,
+          response.data.empresa,
+        );
       })
       .catch(function (error) {
         console.log(error);
       });
+  }
+
+  async function imprimir(nombre, cargo, empresa) {
+    try {
+      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
+
+      await BluetoothEscposPrinter.printText(nombre, {});
+
+      await BluetoothEscposPrinter.printText('\r\n\r\n', {});
+      await BluetoothEscposPrinter.printText(cargo, {});
+
+      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
+      await BluetoothEscposPrinter.printText(empresa, {});
+      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
+    } catch (error) {
+      alert('Error, impresora no conectada');
+    }
   }
 
   let icono =
