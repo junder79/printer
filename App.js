@@ -3,7 +3,7 @@ import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
+import {Avatar} from 'react-native-paper';
 // Importar Componentes
 
 import AjustesBluetooth from './src/views/AjustesBluetooth';
@@ -26,23 +26,27 @@ function InicioScreen() {
 
 function InicioStack() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'black',
+        inactiveTintColor: 'gray',
+      }}>
       <Tab.Screen
-        name="InicioScreen"
+        name="Escanear"
         options={{
           tabBarLabel: 'Escanear',
           tabBarIcon: ({color, size}) => (
-            <Icon name="camera" color="black" size={25} />
+            <Avatar.Icon size={30} icon="camera" />
           ),
         }}
         component={InicioScreen}
       />
       <Tab.Screen
-        name="Ajustes"
+        name="Impresora"
         options={{
           tabBarLabel: 'Impresora',
           tabBarIcon: ({color, size}) => (
-            <Icon name="print" color="black" size={25} />
+            <Avatar.Icon size={30} icon="printer" />
           ),
         }}
         component={AjustesScreen}
@@ -72,7 +76,13 @@ function App() {
             component={InicioStack}
           />
 
-          <Stack.Screen name="DetalleImpresion" component={DetalleScreen} />
+          <Stack.Screen
+            name="DetalleImpresion"
+            options={{
+              title: 'Detalle',
+            }}
+            component={DetalleScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
