@@ -28,8 +28,8 @@ const Escaner = () => {
 
   const hideDialog = () => setVisible(false);
 
-  const showToast = () => {
-    ToastAndroid.show('Error al verificar Usuario', ToastAndroid.SHORT);
+  const showToast = mensaje => {
+    ToastAndroid.show(mensaje, ToastAndroid.SHORT);
   };
 
   const onSuccess = e => {
@@ -58,8 +58,8 @@ const Escaner = () => {
         );
       })
       .catch(function (error) {
-        console.log(error);
-        showToast();
+        showToast('Error en la petición de usuario.');
+        setVisible(false);
       });
   }
 
@@ -94,7 +94,8 @@ const Escaner = () => {
       });
       await BluetoothEscposPrinter.printText('\n\n\n\r', {});
     } catch (error) {
-      alert('Error, impresora no conectada' + error);
+      showToast('Impresora no conectada ' + error);
+      setVisible(false);
     }
   }
 

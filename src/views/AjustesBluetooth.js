@@ -105,6 +105,10 @@ const AjustesBluetooth = () => {
     }
   }, [boundAddress, deviceAlreadPaired, deviceFoundEvent, pairedDevices, scan]);
 
+  const showToast = mensaje => {
+    ToastAndroid.show(mensaje, ToastAndroid.SHORT);
+  };
+
   const deviceAlreadPaired = useCallback(
     rsp => {
       var ds = null;
@@ -162,6 +166,7 @@ const AjustesBluetooth = () => {
         setLoading(false);
         setBoundAddress(row.address);
         setName(row.name || 'UNKNOWN');
+        showToast('Impresora Conectada');
       },
       e => {
         setLoading(false);
@@ -177,6 +182,7 @@ const AjustesBluetooth = () => {
         setLoading(false);
         setBoundAddress('');
         setName('');
+        showToast('Impresora Desconectada');
       },
       e => {
         setLoading(false);
