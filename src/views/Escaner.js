@@ -10,6 +10,7 @@ import {Dimensions} from 'react-native';
 import {Dialog, Portal, ActivityIndicator} from 'react-native-paper';
 import axios from 'axios';
 import {BluetoothEscposPrinter} from 'react-native-bluetooth-escpos-printer';
+import {BluetoothTscPrinter} from 'react-native-bluetooth-escpos-printer';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -59,18 +60,36 @@ const Escaner = () => {
 
   async function imprimir(nombre, cargo, empresa) {
     try {
-      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
-
-      await BluetoothEscposPrinter.printText(nombre, {});
-
-      await BluetoothEscposPrinter.printText('\r\n\r\n', {});
-      await BluetoothEscposPrinter.printText(cargo, {});
-
-      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
-      await BluetoothEscposPrinter.printText(empresa, {});
-      await BluetoothEscposPrinter.printText('\r\n\r\n\r\n\r\n\r\n', {});
+      await BluetoothEscposPrinter.printText('\n\n\r', {});
+      await BluetoothEscposPrinter.printerAlign(
+        BluetoothEscposPrinter.ALIGN.RIGHT,
+      );
+      await BluetoothEscposPrinter.printText(nombre, {
+        encoding: 'GBK',
+        codepage: 0,
+        widthtimes: 2,
+        heigthtimes: 2,
+        fonttype: 1,
+      });
+      await BluetoothEscposPrinter.printText('\n\n\n\r', {});
+      await BluetoothEscposPrinter.printText(cargo, {
+        encoding: 'GBK',
+        codepage: 0,
+        widthtimes: 1,
+        heigthtimes: 1,
+        fonttype: 1,
+      });
+      await BluetoothEscposPrinter.printText('\n\n\n\r', {});
+      await BluetoothEscposPrinter.printText(empresa, {
+        encoding: 'GBK',
+        codepage: 0,
+        widthtimes: 1,
+        heigthtimes: 1,
+        fonttype: 1,
+      });
+      await BluetoothEscposPrinter.printText('\n\n\n\r', {});
     } catch (error) {
-      alert('Error, impresora no conectada');
+      alert('Error, impresora no conectada' + error);
     }
   }
 
