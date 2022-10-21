@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
-import {Text, Image} from 'react-native';
+import {Text, Image, ToastAndroid} from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
@@ -27,6 +27,10 @@ const Escaner = () => {
   const [estado, setEstado] = useState('');
 
   const hideDialog = () => setVisible(false);
+
+  const showToast = () => {
+    ToastAndroid.show('Error al verificar Usuario', ToastAndroid.SHORT);
+  };
 
   const onSuccess = e => {
     try {
@@ -55,6 +59,7 @@ const Escaner = () => {
       })
       .catch(function (error) {
         console.log(error);
+        showToast();
       });
   }
 
