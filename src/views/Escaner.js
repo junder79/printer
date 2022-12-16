@@ -65,34 +65,37 @@ const Escaner = () => {
 
   async function imprimir(nombre, cargo, empresa) {
     try {
-      await BluetoothEscposPrinter.printText('\n\n\r', {});
       await BluetoothEscposPrinter.printerAlign(
-        BluetoothEscposPrinter.ALIGN.RIGHT,
+        BluetoothEscposPrinter.ALIGN.CENTER,
       );
       await BluetoothEscposPrinter.printText(nombre, {
-        encoding: 'GBK',
-        codepage: 0,
+        codepage: 1,
         widthtimes: 2,
         heigthtimes: 2,
         fonttype: 1,
       });
       await BluetoothEscposPrinter.printText('\n\n\n\r', {});
+      await BluetoothEscposPrinter.printerAlign(
+        BluetoothEscposPrinter.ALIGN.CENTER,
+      );
       await BluetoothEscposPrinter.printText(cargo, {
-        encoding: 'GBK',
-        codepage: 0,
+        codepage: 1,
         widthtimes: 1,
         heigthtimes: 1,
         fonttype: 1,
       });
-      await BluetoothEscposPrinter.printText('\n\n\n\r', {});
+      await BluetoothEscposPrinter.printerAlign(
+        BluetoothEscposPrinter.ALIGN.CENTER,
+      );
+      await BluetoothEscposPrinter.printText('\n\n\n', {});
       await BluetoothEscposPrinter.printText(empresa, {
-        encoding: 'GBK',
-        codepage: 0,
+        codepage: 1,
         widthtimes: 1,
         heigthtimes: 1,
         fonttype: 1,
       });
-      await BluetoothEscposPrinter.printText('\n\n\n\r', {});
+
+      await BluetoothEscposPrinter.printText('\n\n\n', {});
     } catch (error) {
       showToast('Impresora no conectada ' + error);
       setVisible(false);
